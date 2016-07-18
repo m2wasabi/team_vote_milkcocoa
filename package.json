@@ -1,0 +1,24 @@
+{
+  "name": "team_vote_milkcocoa",
+  "version": "1.0.0",
+  "description": "web vote system with Milkcocoa",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "keywords": [
+    "Milkcocoa"
+  ],
+  "author": "Milkcocoa supporters",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "react": "^15.2.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "redux-devtools": "^3.3.1"
+  }
+}
