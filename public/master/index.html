@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>Team vote!</title>
     <script src="https://cdn.mlkcca.com/v0.6.0/milkcocoa.js"></script>
+    <script type="text/javascript">
+        var app_id = 'SECRET_SECRET';
+        var milk = new MilkCocoa(app_id + '.mlkcca.com');
+        var ds = milk.dataStore('vote');
+
+        function pushStageTransition(stage) {
+            ds.child('stage').push({'stage':stage});
+        }
+
+    </script>
 
 </head>
 <body>

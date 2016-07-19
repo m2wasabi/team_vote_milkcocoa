@@ -15,6 +15,7 @@ import EndingView from './5_EndingView'
 class App extends Component {
   render() {
     console.log(this.props.stage);
+    pushStageTransition(this.props.stage);
     let Content;
     switch(this.props.stage) {
       case 0:
