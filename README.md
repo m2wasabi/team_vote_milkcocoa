@@ -22,6 +22,11 @@ npm i
 
 ## Usage
 
+#### build
+
+```
+npm run build
+```
 #### test
 
 ```

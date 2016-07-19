@@ -45,3 +45,6 @@ TestResult.xml
 
 # InteliJ Idea config
 .idea/
+
+# Webpack build source
+/public/master/assets/bundle.js
