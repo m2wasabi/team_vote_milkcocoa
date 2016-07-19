@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Team vote!</title>
+    <script src="https://cdn.mlkcca.com/v0.6.0/milkcocoa.js"></script>
+    <script src="assets/jquery-3.1.0.min.js"></script>
+</head>
+<body>
+<div id="container">
+
+    <h1 id="title">Milkcocoa合戦</h1>
+    <h2 id="stage_caption"></h2>
+    <ul>
+        <li><label for="vote_0"><input type="radio" name="vote" value="0" id="vote_0"/> 白組</label></li>
+        <li><label for="vote_1"><input type="radio" name="vote" value="1" id="vote_1"/> 紅組</label></li>
+    </ul>
+
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        var APP_ID = 'SECRET_SECRET';
+        var milk = new MilkCocoa(APP_ID + '.mlkcca.com');
+        var ds = milk.dataStore('vote');
+
+        const stage_text = ['投票受付しておりません','投票受付中','投票処理中','♪結果報告中♪','♪結果報告中♪','♪お疲れさまでした♪',];
+        var stage = 0;
+
+        ds.child('stage').stream().size(10).next(function(err, data) {
+            if(data.length){
+                stage = parseInt(data[0].value.stage);
+            } else {
+              stage = 0;
+            }
+            $('#stage_caption').text(stage_text[stage]);
+        });
+
+        $("input[name='vote']").click(function (event) {
+            var team = $(this).val();
+            switch (stage){
+                case 1:
+                    ds.child('live').send({'team': parseInt(team), 'switch': false });
+                    voteEffect(parseInt(team));
+                    break;
+                case 2:
+                    break;
+                default:
+            }
+
+        });
+
+        ds.child('stage').on('push',function (datum) {
+            stage = parseInt(datum.value.stage);
+            $('#stage_caption').text(stage_text[stage]);
+            if(stage === 2) {
+                commitVote();
+            }
+        });
+
+        function voteEffect(team) {
+            // 何か投票のときのエフェクトを書く team: 0 or 1
+            console.log(team);
+        }
+        
+        function commitVote() {
+            var selection = $("input[name='vote']").val();
+            if(typeof selection !== 'undefined'){
+                var team = parseInt(selection);
+                ds.child('commit').push({'team':team});
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
