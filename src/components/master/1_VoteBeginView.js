@@ -22,7 +22,9 @@ class VoteBeginView extends Component {
         <h1>
           投票中
         </h1>
-        <button onClick={() => {
+        <button id="btnCountDown" onClick={() => {
+          var btn = document.getElementById("btnCountDown");
+          btn.setAttribute('disabled','disabled');
           var delay = 1000;
           var leftTime = 5000;
           var timer = setInterval( () => {
