@@ -5,8 +5,8 @@ const initialState = {
   'stage':0,
   'timeLimit': null,
   'votes':{
-    'live':{0:1,1:0},
-    'commit':{0:1,1:0}
+    'live':{team0:0,team1:0},
+    'commit':{team0:0,team1:0}
   },
   'results': []
 };
@@ -21,8 +21,8 @@ export default function masterApp(state, action) {
       return Object.assign({}, state, {
         stage: 0,
         votes: {
-          'live': {0:1,1:0},
-          'commit': {0:1,1:0}
+          'live': {team0:0,team1:0},
+          'commit': {team0:0,team1:0}
         }
       });
 
@@ -33,10 +33,10 @@ export default function masterApp(state, action) {
 
     case 'LIVE_VOTE':
       let _live = state.votes.live;
-      _live[action.vote.team]++;
-      if( action.vote.switch !== null ) {
-        _live[action.vote.switch]--;
-      }
+      _live['team' + action.vote.team] +=1;
+      // if( action.vote.switch !== null ) {
+      //   _live[action.vote.switch] -= 1;
+      // }
       return Object.assign({}, state, {
         votes: { live: _live}
       });
@@ -48,7 +48,7 @@ export default function masterApp(state, action) {
 
     case 'FINAL_VOTE':
       let _commit = state.votes.commit;
-      _commit[action.vote.team]++;
+      _commit['team' + action.vote.team] += 1;
       return Object.assign({}, state, {
         votes: { commit: _commit}
       });

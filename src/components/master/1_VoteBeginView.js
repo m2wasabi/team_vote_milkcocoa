@@ -3,12 +3,20 @@
  */
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { initVote, beginVote, stopVote, showResult, showSummary, showEnding } from '../../actions/master'
+import { initVote, beginVote, liveVote, stopVote, showResult, showSummary, showEnding } from '../../actions/master'
 
 class VoteBeginView extends Component {
   render() {
-    const {dispatch, timeLimit, vote} = this.props;
-    console.log(vote);
+    var {dispatch, timeLimit, votes} = this.props;
+
+    ds.child('live').off('send');
+    ds.child('live').on('send', (datum)=>{
+      console.log(datum);
+      console.log(this.props);
+      var team = parseInt(datum.value.team);
+      dispatch(liveVote({'team':team,'switch':null}));
+    });
+
     return (
       <div>
         <h1>
@@ -33,17 +41,35 @@ class VoteBeginView extends Component {
           } ,delay);
         }}>カウントダウン開始</button>
         <div>カウントダウン <span id="countdown" /></div>
+        <div>
+          Stars ★
+          <ul>
+            <li>紅組<span id="votes-0">{votes.live.team0}</span></li>
+            <li>白組<span id="votes-1">{votes.live.team1}</span></li>
+          </ul>
+        </div>
+
         <div>エフェクト</div>
       </div>
     )
   }
 }
+VoteBeginView.propTypes = {
+  stage: PropTypes.number.isRequired,
+  timeLimit: PropTypes.any,
+  votes: PropTypes.shape({
+    live: PropTypes.shape({
+      team0: PropTypes.number.isRequired,
+      team1: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired
+};
 
 function select(state) {
   return {
     stage: state.stage,
     timeLimit: state.timeLimit,
-    vote: state.votes.live
+    votes: {live: state.votes.live}
   }
 }
 
