@@ -3,7 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { initVote, beginVote, stopVote, showResult, showSummary, showEnding } from '../../actions/master'
+import { initVote, beginVote, liveVote, stopVote, showResult, showSummary, showEnding } from '../../actions/master'
 
 class InitView extends Component {
   render() {
@@ -13,7 +13,13 @@ class InitView extends Component {
         <h1>
           Milkcocoa合戦
         </h1>
-        <button onClick={() => dispatch(beginVote())}>投票開始する</button>
+        <button onClick={() => {
+          dispatch(beginVote());
+          ds.child('live').on('send', (datum)=>{
+            var team = parseInt(datum.value.team);
+            dispatch(liveVote({'team':team,'switch':null}));
+          });
+        }}>投票開始する</button>
       </div>
     )
   }

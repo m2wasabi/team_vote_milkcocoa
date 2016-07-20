@@ -9,14 +9,6 @@ class VoteBeginView extends Component {
   render() {
     var {dispatch, timeLimit, votes} = this.props;
 
-    ds.child('live').off('send');
-    ds.child('live').on('send', (datum)=>{
-      console.log(datum);
-      console.log(this.props);
-      var team = parseInt(datum.value.team);
-      dispatch(liveVote({'team':team,'switch':null}));
-    });
-
     return (
       <div>
         <h1>
@@ -32,6 +24,8 @@ class VoteBeginView extends Component {
             if(leftTime < 0) {
               clearInterval(timer);
               dispatch(stopVote());
+
+              ds.child('live').off('send');
             }
 
             var elm = document.getElementById('countdown');
