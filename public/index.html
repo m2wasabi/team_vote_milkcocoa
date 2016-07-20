@@ -65,7 +65,7 @@
         }
         
         function commitVote() {
-            var selection = $("input[name='vote']").val();
+            var selection = $("input[name='vote']:checked").val();
             if(typeof selection !== 'undefined'){
                 var team = parseInt(selection);
                 ds.child('commit').push({'team':team});
