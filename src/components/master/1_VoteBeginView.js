@@ -3,7 +3,7 @@
  */
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { initVote, beginVote, liveVote, stopVote, showResult, showSummary, showEnding } from '../../actions/master'
+import { initVote, beginVote, liveVote, stopVote, finalVote, showResult, showSummary, showEnding } from '../../actions/master'
 
 class VoteBeginView extends Component {
   render() {
@@ -26,6 +26,13 @@ class VoteBeginView extends Component {
               dispatch(stopVote());
 
               ds.child('live').off('send');
+              ds.child('commit').on('push', (datum)=>{
+                console.log(datum);
+                console.log(this.props);
+                var team = parseInt(datum.value.team);
+                dispatch(finalVote({'team':team}));
+              });
+
             }
 
             var elm = document.getElementById('countdown');
