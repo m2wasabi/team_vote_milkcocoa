@@ -10,10 +10,9 @@ class SummaryView extends Component {
     const {dispatch, results} = this.props;
     var turn = 1;
     var tbody = results.map((result) => {
-      var winner = () => {
-        return((result.team0 > result.team1)? 0:(result.team0 < result.team1)?1:-1);
-      };
-      return ( <tr><th>{turn++} 回戦</th><td className={(winner === 0)?"team0 winner": "team0"}>{result.team0}</td><td className={(winner === 0)?"team1 winner": "team1"}>{result.team1}</td></tr>)
+      var winner = ((result.team0 > result.team1)? 0:((result.team0 < result.team1)?1:-1));
+      console.log(winner);
+      return ( <tr><th>{turn++} 回戦</th><td className={(winner === 0)?"team0 winner": "team0"}>{result.team0}</td><td className={(winner === 1)?"team1 winner": "team1"}>{result.team1}</td></tr>)
     });
     return (
       <div>
