@@ -1,0 +1,5 @@
+table#tbl-results { border: solid }
+table#tbl-results th {border: solid 1px}
+table#tbl-results td {border: solid 1px}
+table#tbl-results td.team0.winner {background-color: lightpink}
+table#tbl-results td.team1.winner {background-color: #a1b9ed}
