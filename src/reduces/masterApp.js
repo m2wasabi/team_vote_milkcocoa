@@ -38,7 +38,10 @@ export default function masterApp(state, action) {
       //   _live[action.vote.switch] -= 1;
       // }
       return Object.assign({}, state, {
-        votes: { live: _live}
+        votes: {
+          live: _live,
+          commit: state.votes.commit
+        }
       });
 
     case 'STOP_VOTE':
@@ -50,7 +53,10 @@ export default function masterApp(state, action) {
       let _commit = state.votes.commit;
       _commit['team' + action.vote.team] += 1;
       return Object.assign({}, state, {
-        votes: { commit: _commit}
+        votes: {
+          live: state.votes.live,
+          commit: _commit
+        }
       });
 
     case 'SHOW_RESULT':
