@@ -5,16 +5,55 @@
     <title>Team vote!</title>
     <script src="https://cdn.mlkcca.com/v0.6.0/milkcocoa.js"></script>
     <script src="assets/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+        body {
+            background-color: bisque;
+        }
+        .sample input {
+            display: none;
+        }
+        .sample label{
+            display: block;
+            float: left;
+            cursor: pointer;
+            width: 60px;
+            margin: 0;
+            padding: 10px;
+            background: #bdc3c7;
+            color: #869198;
+            font-size: 16px;
+            text-align: center;
+            line-height: 1;
+            transition: .2s;
+        }
+        .sample label:first-of-type{
+            border-radius: 3px 0 0 3px;
+        }
+        .sample label:last-of-type{
+            border-radius: 0 3px 3px 0;
+        }
+        .sample input[type="radio"]:checked + .switch-on {
+            background-color: #e67168;
+            color: #fff;
+        }
+        .sample input[type="radio"]:checked + .switch-off {
+            background-color: #a1b9ed;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 <div id="container">
 
     <h1 id="title">Milkcocoa合戦</h1>
     <h2 id="stage_caption"></h2>
-    <ul>
-        <li><label for="vote_0"><input type="radio" name="vote" value="0" id="vote_0"/> 紅組</label></li>
-        <li><label for="vote_1"><input type="radio" name="vote" value="1" id="vote_1"/> 白組</label></li>
-    </ul>
+    <div class="sample">
+        <input type="radio" name="vote" id="vote_0" value="0" checked="">
+        <label for="vote_0" class="switch-on">紅組</label>
+        <input type="radio" name="vote" id="vote_1" value="1">
+        <label for="vote_1" class="switch-off">白組</label>
+    </div>
+
 
 </div>
 
