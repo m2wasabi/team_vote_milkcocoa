@@ -9,8 +9,12 @@
         var milk = new MilkCocoa(app_id + '.mlkcca.com');
         var ds = milk.dataStore('vote');
 
+        var _old_stage = null;
         function pushStageTransition(stage) {
-            ds.child('stage').push({'stage':stage});
+            if( _old_stage !== stage) {
+                ds.child('stage').push({'stage':stage});
+                _old_stage = stage;
+            }
         }
 
     </script>
